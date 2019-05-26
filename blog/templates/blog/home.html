@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% if user.is_active %}
+<p>{{ user.username }}님 반갑습니다.</p>
+<p>{{ user.nickname }}님 반갑습니다.</p>
+<p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">login</a>
+<a href="{% url 'accounts:signup' %}">signup</a>
+{% endif %}
+
+
+<h1 style="color: rgb(255, 255, 255); background-color: rgb(161, 206, 37);">
+    글 리스트</h1>
+
+{% for post in posts.all %}
+<div style="background-color: rgb(236, 236, 236)">
+    <h2><a href="{% url 'detail' post.id %}">{{post.title}}</a></h2>
+    <p>{{post.created_date}}</p>
+    <p>{{post.text}}</p>
+</div>
+
+{% endfor %}
+{% endblock %}
